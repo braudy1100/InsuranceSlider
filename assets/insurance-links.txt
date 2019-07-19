@@ -1,0 +1,12 @@
+[
+	{
+		"name": "Nationwide Insurance",
+		"url": "https://www.nationwide.com/",
+		"image_url": "/wp-content/uploads/2019/07/nationwide.png"
+	},
+	{
+		"name": "Travelers Insurance",
+		"url": "http://www.travelers.com/",
+		"image_url": "/wp-content/uploads/2019/07/nationwide.png"
+	}
+]
