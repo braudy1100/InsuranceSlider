@@ -1,6 +1,4 @@
-jQuery(document).ready(function(){
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
+var firebaseConfig = {
     apiKey: "AIzaSyC3s8mH22FjuASAlrSTXZSMpnGr34KUmM8",
     authDomain: "insurance-slider.firebaseapp.com",
     databaseURL: "https://insurance-slider.firebaseio.com",
@@ -13,5 +11,3 @@ jQuery(document).ready(function(){
   firebase.initializeApp(firebaseConfig);
 
   const db = firebase.firestore();
-  db.settings( { timestampsInSnapshots: true } );
-});

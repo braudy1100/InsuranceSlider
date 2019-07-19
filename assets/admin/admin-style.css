@@ -1,1 +1,26 @@
-.insurance-list { display: flex; }
+.partners { 
+	display: flex; 
+	flex-wrap: wrap;
+    max-width: 75%;
+}
+
+.partners .partner {
+	flex: 0 0 calc(33% - 90px);
+}
+
+.partners .partner {
+    background: white;
+    padding: 30px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, .16);
+    margin-bottom: 30px;
+}
+
+.partners .partner:not(:nth-child(3n+3)) {
+	margin-right: 30px;
+}
+
+.partner img {
+    max-height: 100px;
+    margin: auto;
+    display: block;
+}
