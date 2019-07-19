@@ -28,7 +28,7 @@ function displayPartners(doc) {
 
   // create image upload field
   let imageLabel = document.createElement('label');
-  imageLabel.innerHTML = 'Upload an image:';
+  imageLabel.innerHTML = 'Upload new image:';
   let image = document.createElement('input');
   image.setAttribute('type', 'file');
   image.setAttribute('accept', 'image/*')
