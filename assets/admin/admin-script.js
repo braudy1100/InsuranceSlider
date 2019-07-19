@@ -1,8 +1,9 @@
+jQuery(document).ready(function(){
+  const partnerList = document.querySelector('.partners');
+  const addForm = document.querySelector('#add-partner-form');
 
 // fetch and render partner list
 function displayPartners(doc) {
-  let partnerList = document.querySelector('.partners');
-
   // create partner div
   let partnerContainer = document.createElement('div');
   partnerContainer.setAttribute('data-id', doc.id);
@@ -45,10 +46,34 @@ function displayPartners(doc) {
   partnerList.appendChild(partnerContainer);
 }
 
-// Get Insurance Links details
-db.collection( 'partners' ).get().then((snapshot) => {
-  snapshot.docs.forEach(doc => {
-    jQuery('.loader').hide();
-    displayPartners(doc);
+// Adding new item
+// addForm.addEventListener('submit', (e) => {
+//   e.preventDefault();
+//   db.collection('partners').add({
+//     name: addForm.name.value,
+//     url: addForm.url.value,
+//     image_url: addForm.imageUrl.value
+//   });
+
+//   // clear fields
+//   addForm.name.value = '';
+//   addForm.url.value = '';
+//   addForm.imageUrl.value = '';
+// });
+
+
+// Real time data rendering
+db.collection('partners').orderBy('name').onSnapshot(snapshot => {
+  let changes = snapshot.docChanges();
+  changes.forEach(change => {
+    if(change.type == 'added') {
+      jQuery('.loader').hide();
+      displayPartners(change.doc);
+    } else if(change.type == 'removed') {
+      let childToRemove = partnerList.querySelector('[data-id=' + change.doc.id +']');
+      partnerList.removeChild(childToRemove);
+    }
   });
+});
+
 });

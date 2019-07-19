@@ -1,8 +1,80 @@
 /*General Admin Style*/
+#wpcontent { padding-left: 0!important; }
+
 .admin-wrapper {
     position: relative;
     padding: 30px;
 }
+
+.admin-wrapper input {
+    width: 100%;
+    padding: 10px;
+}
+
+.admin-header {
+	display: flex;
+    align-items: center;
+    max-width: 420px;
+    justify-content: space-between;
+}
+
+.admin-btn {
+    background: green;
+    color: white!important;
+    font-size: 15px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    border: none;
+    min-width: 150px;
+    padding: 10px;
+    text-align: center;
+}
+
+.admin-btn:hover {
+	background: #4d7d4d;
+}
+
+.add-partner-modal {
+	position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.add-partner-modal #add-partner-form {
+    max-width: 300px;
+    background: white;
+    padding: 25px 25px 25px 25px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 200px;
+    position: absolute;
+}
+
+.form-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    background: rgba(0, 0, 0, .16);
+}
+
+.form-close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+
+#add-partner-form input { margin-bottom: 15px; }
+
 
 
 /*Partners CSS*/
@@ -41,9 +113,4 @@
     font-weight: bold;
     display: block;
     margin: 5px 0px;
-}
-
-.partner input {
-    width: 100%;
-    padding: 10px;
 }
