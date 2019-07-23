@@ -11,5 +11,6 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
+const storage = firebase.storage();
 
-
+var updateCollection = [];

@@ -90,12 +90,15 @@ class InsuranceSlider
 	}
 
 	function enqueue() {
+		wp_enqueue_script( 'sweet-alert-master', 'https://cdn.jsdelivr.net/npm/sweetalert2@8' );
 		wp_enqueue_script( 'firebase-app-script', 'https://www.gstatic.com/firebasejs/6.3.0/firebase-app.js' );
 		wp_enqueue_script( 'firebase-firestore-script', 'https://www.gstatic.com/firebasejs/6.3.0/firebase-firestore.js' );
 		wp_enqueue_script( 'firebase--storage-script', 'https://www.gstatic.com/firebasejs/6.3.0/firebase-storage.js' );
 		wp_enqueue_script( 'firebase-setup', plugins_url( '/includes/firebase-init.js', __FILE__ ) );
+		wp_enqueue_script( 'utility-script', plugins_url( '/assets/js/util.js', __FILE__ ) );
 		wp_enqueue_style( 'admin-style', plugins_url( '/assets/admin/admin-style.css', __FILE__ ) );
 		wp_enqueue_script( 'admin-script', plugins_url( '/assets/admin/admin-script.js', __FILE__ ) );
+		
 	}
 
 	function activate() {

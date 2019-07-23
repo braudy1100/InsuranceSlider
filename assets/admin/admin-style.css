@@ -14,9 +14,12 @@
 .admin-header {
 	display: flex;
     align-items: center;
-    max-width: 420px;
+    max-width: 520px;
     justify-content: space-between;
 }
+
+.update-btn { margin-left: 15px; visibility: hidden; }
+.update-btn.enabled { visibility: visible; }
 
 .admin-btn {
     background: green;
@@ -41,6 +44,18 @@
     right: 0;
     top: 0;
     bottom: 0;
+    display: none;
+    z-index: 9999;
+}
+
+.deleteButton {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    color: red;
 }
 
 .add-partner-modal #add-partner-form {
@@ -75,8 +90,6 @@
 
 #add-partner-form input { margin-bottom: 15px; }
 
-
-
 /*Partners CSS*/
 .partners {
 	margin-top: 30px;
@@ -94,6 +107,7 @@
     padding: 30px;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, .16);
     margin-bottom: 30px;
+    position: relative;
 }
 
 .partners .partner:not(:nth-child(3n+3)) {
