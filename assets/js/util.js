@@ -28,6 +28,12 @@ function addPartner(name, url, fileObject, fileName) {
 		      image_url: downloadURL
 	   	  });
 
+	   	  jQuery('#add-partner-form > #name').val("");
+	   	  jQuery('#add-partner-form > #url').val("");
+	   	  jQuery('#add-partner-form > #imageUrl').val("");
+	   	  jQuery('.add-partner-modal').hide();
+
+
 	   	  Swal.fire({
 			  type: 'success',
 			  title: 'Item added',
@@ -38,6 +44,14 @@ function addPartner(name, url, fileObject, fileName) {
     });
 }
 
+// function addPluginUser(siteName, siteUrl) {
+// 	return db.collection('users').add({
+// 		site_name: siteName,
+// 		site_url: siteUrl
+// 	}).then(function(doc){
+// 		return doc.id;
+// 	});
+// }
 
 function updatePartner(id, name, url, fileObject, fileName) {
     var storageRef = storage.ref('/images/'+ fileName);
@@ -71,13 +85,6 @@ function updatePartner(id, name, url, fileObject, fileName) {
 			   	  });
 			   	  console.log(jQuery('[data-id=' + id + ']').find('img').attr('src', downloadURL));
 		      }
-
-		   	  Swal.fire({
-				  type: 'success',
-				  title: 'Item updated',
-				  showConfirmButton: false,
-				  timer: 1000
-				});
 	        }); 
 	    });
 	} else {
@@ -86,6 +93,21 @@ function updatePartner(id, name, url, fileObject, fileName) {
 	      url: url 
 		});
 	}
+
+	Swal.fire({
+	  type: 'success',
+	  title: 'Item updated',
+	  showConfirmButton: false,
+	  timer: 1000
+	});
+	updateCollection = [];
+	jQuery('.update-btn').removeClass('enabled');
+}
+
+function fetchDataFromDB(){
+	return db.collection('partners').orderBy('name').get().then(snapshot => {
+	    return snapshot.docs;
+	});
 }
 
 
@@ -95,4 +117,15 @@ function convertToSlug(Text) {
       .replace(/ /g,'-')
       .replace(/[^\w-]+/g,'')
       ;
+}
+
+function detectUpdates() {
+	// detect updates
+    jQuery(".partner input").on("change keyup paste", function(e){
+        let id = e.target.parentElement.getAttribute('data-id');
+        if(!updateCollection.includes(id)) {
+          updateCollection.push(id);
+          jQuery('.update-btn').addClass('enabled');
+        }
+    });
 }

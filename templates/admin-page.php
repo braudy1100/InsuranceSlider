@@ -1,5 +1,4 @@
-<div class="admin-wrapper">
-
+<div class="admin-wrapper" id="admin-top-page">
 	<div class="add-partner-modal">
 		<div class="form-overlay"></div>
 		<form id="add-partner-form">
@@ -13,7 +12,7 @@
 	</div>
 
 	<div class="admin-header">
-		<h1>Insurance Slider</h1>
+		<h1>Insurance Slider Database</h1>
 		<div class="button-group">
 			<a class="admin-btn form-open" href="#">Add New Partner</a>
 			<a class="admin-btn btn-style2 update-btn" href="#">Save Changes</a>

@@ -46,7 +46,7 @@ jQuery(document).ready(function() {
         // create delete button
         let deleteButton = document.createElement('a');
         deleteButton.textContent = "X";
-        deleteButton.setAttribute('class', 'deleteButton');
+        deleteButton.setAttribute('class', 'delete-btn');
         deleteButton.setAttribute('href', '#');
 
         // append elements to parent
@@ -87,50 +87,8 @@ jQuery(document).ready(function() {
             });
         });
 
-        // detect updates
-        jQuery("input").on("change keyup paste", function(e){
-            let id = e.target.parentElement.getAttribute('data-id');
-            if(!updateCollection.includes(id)) {
-              updateCollection.push(id);
-              jQuery('.update-btn').addClass('enabled');
-            }
-
-        });
+        detectUpdates();
     }
-
-    // update changes
-    updateBtn.addEventListener('click', (e) => {
-      let timerInterval
-      Swal.fire({
-        title: 'Please wait ..',
-        html: 'Updating data ..',
-        timer: 3000,
-        onBeforeOpen: () => {
-          Swal.showLoading();
-        },
-        onClose: () => {
-          clearInterval(timerInterval)
-        }
-      }).then((result) => {
-        updateCollection.forEach(id => {
-            let parent = jQuery('[data-id=' + id + ']');
-            let name = parent.find('.partner-name').val();
-            let url = parent.find('.partner-url').val();
-            let imageObject = parent.find('.partner-image');
-
-            let imageFile = parent.find('.partner-image').prop('files')[0];
-            let imageFileName = convertToSlug(name) + "-" + Date.now();
-            // console.log(imageFile);
-            updatePartner(id, name, url, imageFile, imageFileName);
-        });
-
-        if (result.dismiss === Swal.DismissReason.timer) {
-          console.log('items updated');
-        }
-      })
-    });
-
-
 
     // Adding new item
     addForm.addEventListener('submit', (e) => {
@@ -163,4 +121,36 @@ jQuery(document).ready(function() {
         });
     });
 
+    
+    // update changes
+      updateBtn.addEventListener('click', (e) => {
+        let timerInterval
+        Swal.fire({
+          title: 'Please wait ..',
+          html: 'Updating data ..',
+          timer: 3000,
+          onBeforeOpen: () => {
+            Swal.showLoading();
+          },
+          onClose: () => {
+            clearInterval(timerInterval)
+          }
+        }).then((result) => {
+          updateCollection.forEach(id => {
+              let parent = jQuery('[data-id=' + id + ']');
+              let name = parent.find('.partner-name').val();
+              let url = parent.find('.partner-url').val();
+              let imageObject = parent.find('.partner-image');
+
+              let imageFile = parent.find('.partner-image').prop('files')[0];
+              let imageFileName = convertToSlug(name) + "-" + Date.now();
+              // console.log(imageFile);
+              updatePartner(id, name, url, imageFile, imageFileName);
+          });
+
+          if (result.dismiss === Swal.DismissReason.timer) {
+            console.log('items updated');
+          }
+        })
+      });
 });

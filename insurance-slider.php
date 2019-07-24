@@ -29,7 +29,7 @@ class InsuranceSlider
 	}
 
 	function register() {
-		add_action('admin_head', array( $this, 'hide_cog' )) ;
+		add_action('admin_head', array( $this, 'hide_cog' ) );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 
@@ -44,6 +44,8 @@ class InsuranceSlider
 		add_filter('includes/advanced-custom-fields-pro/acf/settings/dir', 'ir_acf_settings_dir');
 
 		include_once( plugin_dir_path( __FILE__ ) . 'includes/advanced-custom-fields-pro/acf.php' );
+
+		add_action( 'init', array($this, 'validate_user'), 10, 2 );
 	}
 
 	public function ir_acf_settings_path( $path ) {
@@ -65,10 +67,18 @@ class InsuranceSlider
 
 	public function add_admin_page() {
 		add_menu_page( 'Insurance Slider', 'Insurance Slider', 'manage_options', 'insurance_slider', array( $this, 'load_admin_page' ), 'dashicons-screenoptions', 65 );
+		add_submenu_page( 'insurance_slider', 'Shortcode', 'Shortcode', 'manage_options', 'insurance_slider_shortcode', array( $this, 'load_admin_subpage' ) );
 	}
+
 
 	public function load_admin_page() {
 		require_once plugin_dir_path( __FILE__ ) . 'templates/admin-page.php';
+		wp_enqueue_script( 'admin-script', plugins_url( '/assets/admin/admin-script.js', __FILE__ ) );
+	}
+
+	public function load_admin_subpage() {
+		require_once plugin_dir_path( __FILE__ ) . 'templates/shortcode-page.php';
+		wp_enqueue_script( 'subpage-script', plugins_url( '/assets/admin/submenu-script.js', __FILE__ ) );
 	}
 
 	public function add_menu_options() {
@@ -79,7 +89,8 @@ class InsuranceSlider
 				'menu_title'	=> 'Settings',
 				'menu_slug' 	=> 'settings',
 				'parent_slug'	=> 'insurance_slider',
-			));	
+			));
+
 		}
 	}
 
@@ -96,29 +107,36 @@ class InsuranceSlider
 		wp_enqueue_script( 'firebase--storage-script', 'https://www.gstatic.com/firebasejs/6.3.0/firebase-storage.js' );
 		wp_enqueue_script( 'firebase-setup', plugins_url( '/includes/firebase-init.js', __FILE__ ) );
 		wp_enqueue_script( 'utility-script', plugins_url( '/assets/js/util.js', __FILE__ ) );
-		wp_enqueue_style( 'admin-style', plugins_url( '/assets/admin/admin-style.css', __FILE__ ) );
-		wp_enqueue_script( 'admin-script', plugins_url( '/assets/admin/admin-script.js', __FILE__ ) );
-		
+		wp_enqueue_style( 'general-style', plugins_url( '/assets/admin/general-style.css', __FILE__ ) );
 	}
 
 	function activate() {
+		add_option('plugin_activated', 'active');
+		add_metadata( 'user', $this->plugin_basename, 'plugin-user-id', '1234' );
 		flush_rewrite_rules();
+
 	}
 
 	function deactivate() {
+		delete_option( 'plugin_activated' );
 		flush_rewrite_rules();
+	}
+
+	function validate_user() {
+		if( is_admin() && get_option( 'plugin_activated' ) == 'active' ) {
+			wp_enqueue_script( 'activate-script', plugins_url( '/assets/js/plugin/activate.js', __FILE__ ) );
+		}
 	}
 }
 
 if( class_exists( 'InsuranceSlider' ) ) {
 	$insuranceSlider = new InsuranceSlider();
+
+	// activation
+	register_activation_hook( __FILE__, array($insuranceSlider, 'activate' ) );
+
+	// deactivation
+	register_deactivation_hook( __FILE__, array($insuranceSlider, 'deactivate' ) );
+
 	$insuranceSlider->register();
 }
-
-// activation
-register_activation_hook( __FILE__, array($insuranceSlider, 'activate' ) );
-
-// deactivation
-register_deactivation_hook( __FILE__, array($insuranceSlider, 'deactivate' ) );
-
-// uninstall
