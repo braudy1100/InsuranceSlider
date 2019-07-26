@@ -142,3 +142,5 @@ button { cursor: position; }
 .partners-fieldset input[type=checkbox] {
     width: auto;
 }
+
+.partners-fieldset { margin-bottom: 15px; }

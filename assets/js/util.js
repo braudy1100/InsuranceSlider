@@ -44,14 +44,6 @@ function addPartner(name, url, fileObject, fileName) {
     });
 }
 
-// function addPluginUser(siteName, siteUrl) {
-// 	return db.collection('users').add({
-// 		site_name: siteName,
-// 		site_url: siteUrl
-// 	}).then(function(doc){
-// 		return doc.id;
-// 	});
-// }
 
 function updatePartner(id, name, url, fileObject, fileName) {
     var storageRef = storage.ref('/images/'+ fileName);
@@ -129,3 +121,6 @@ function detectUpdates() {
         }
     });
 }
+
+
+
