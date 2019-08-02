@@ -91,10 +91,8 @@ class InsuranceSlider
 	// enqueue all scrips and style
 	function enqueue() {
 		wp_enqueue_style( 'general-style', plugins_url( '/assets/admin/css/general-style.css', __FILE__ ) );
-		wp_enqueue_style( 'slick-css', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css' );
 		
 		wp_enqueue_script( 'sweet-alert-master', 'https://cdn.jsdelivr.net/npm/sweetalert2@8' );
-		wp_enqueue_script( 'slick-js', '//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js' );
 		wp_enqueue_script( 'firebase-app-script', 'https://www.gstatic.com/firebasejs/6.3.0/firebase-app.js' );
 		wp_enqueue_script( 'firebase-firestore-script', 'https://www.gstatic.com/firebasejs/6.3.0/firebase-firestore.js' );
 		wp_enqueue_script( 'firebase-storage-script', 'https://www.gstatic.com/firebasejs/6.3.0/firebase-storage.js' );
